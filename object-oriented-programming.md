@@ -40,8 +40,7 @@ An upcast is when we cast a child type to a parent type, and a downcast is when 
 
 ## Dynamic Method Selection
 In general, we can use this flow chart when executing dymanic method selection. 
-
-[image]
+![Dynamic method selection flow chart](imgs/dynamic-method-selection.png)
 
 Now let's run through an example.
 ```
