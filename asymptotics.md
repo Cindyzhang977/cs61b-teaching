@@ -1,5 +1,5 @@
 # Asymptotics
-When we write code to solve a problem, we want to know how efficient our solution is. If we simply measured the time it takes for the program to execute, that measurement would vary depending on which machine we use, and even then the time would vary from trial to trial. Instead, we rely on asymptotic analysis to describe the efficiency of an algorithm based on the input size. **It's important to note that we only care about how the function would perform as inputs grow infinitely large.**
+When we write code to solve a problem, we want to know how efficient our solution is. If we simply measured the time it takes for the program to execute, that measurement would vary depending on which machine we use, and even then the time would vary from trial to trial. Instead, we rely on asymptotic analysis to describe the efficiency of an algorithm as a function of the input size. **It's important to note that we only care about how the function would perform as inputs grow infinitely large.**
 
 Let N be the input size, and let c be a constant. In order of fastest to slowest runtime: linear &Theta;(c), logarithmic &Theta;(logN), polynomial &Theta;(N<sup>c</sup>), exponential &Theta;(c<sup>N</sup>), &Theta;(N!), &Theta;(N<sup>N</sup>).
 
@@ -12,7 +12,7 @@ _Big-Omega_ (**&Omega;**) - lower bound
 
 _Big-Theta_ (**&Theta;**) - tight bound (a &Theta;-bound exists when the tightest upper bound equals tightest lower bound)
 
-**Note:** Big-O is not synonymous with "worst case" and Big-Omega is not synonymous with "best case". As an example, the worst cast runtime of a function could be &Theta;(N<sup>2</sup>), and it's perfectly acceptable to say that &Theta;(N!) is an upper bound for the function. Instead, we can say that the worst case is the _tightest_ Big-O bound, and the best case is the _tightest_ Big-Omega bound. 
+**Note:** Big-O is not synonymous with "worst case" and Big-Omega is not synonymous with "best case". As an example, the worst case runtime of a function could be &Theta;(N<sup>2</sup>), and it's perfectly acceptable to say that &Theta;(N!) is an upper bound for the function. Instead, we can say that the worst case is the _tightest_ Big-O bound, and the best case is the _tightest_ Big-Omega bound. 
 
 ## Quality vs. Quantity of Input
 During runtime analysis, we only consider when the input is infinitely large. In other words, we always assume that the _quantity_ of the input is an infinitly large `N`. Therefore, we ignore the if-statement in `function1` since 1000 is a constant, and the runtime of `function1` is &Theta;(N). 
@@ -99,7 +99,7 @@ For the first iteration when `i = 0`, the inner loop iterates from 0 to N while 
 ### Solving with Multiplication 
 This method is effectively unit conversion, and thus relies on either the work/node to be consistent across all nodes or the work/level to be consistent across all levels of the recursion tree. In equation form, `total work = (work / node)(# of nodes / level)(# of levels)` or simply `total work = (work / level)(# of levels)`. 
 
-Let's revisit the recursion tree from `function3`, and calculate the runtime of the function. Is the work/node consistent across all nodes? No. Is the work/level consistent across all levels? Yes. Therefore, we can use multiplication to solve for the runtime of `function3`.
+Let's revisit the recursion tree from `function3` and calculate the runtime of the function. Is the work/node consistent across all nodes? No. Is the work/level consistent across all levels? Yes. Therefore, we can use multiplication to solve for the runtime of `function3`.
 ```
           N                    level 0 work: N
       /       \
@@ -107,7 +107,7 @@ Let's revisit the recursion tree from `function3`, and calculate the runtime of 
   /   \       /   \
 N/4   N/4   N/4   N/4          level 2 work: 4 * N/4 = N
 / \   / \   / \   / \
-         ...                   leve k work: 2^k * N/(2^k) = N
+         ...                   level k work: 2^k * N/(2^k) = N
 ```
 Since there are logN levels (convince yourself why this is the case) and the work/level is N, the overall runtime is &Theta;(NlogN). 
 
