@@ -111,6 +111,7 @@ N/4   N/4   N/4   N/4          level 2 work: 4 * N/4 = N
 ```
 Since there are logN levels (convince yourself why this is the case) and the work/level is N, the overall runtime is &Theta;(NlogN). 
 
+## Bonus Example
 Let's look at a more complicated example. 
 ```
 int function5(int N) {
@@ -126,7 +127,18 @@ int function5(int N) {
   return total;
 }
 ```
-For clarity purposes, the branches of this recusive tree has been omitted.
+For clarity purposes, the depictions of branches for this recusive tree has been omitted.
 ```
+                             10 (input = N)                            level 0 work: 10
+                             
+    10 (input = N - 1)        10          10      ...     10           level 1 work: 10 * 10 = 10^2
+   
+10 (input = N - 2) ... 10  10 ... 10   10 ... 10       10 ... 10       level 2 work: 10 * 10 * 10 = 10^3
 
+                                  ...                                  level k work: 10^(k+1) = 10 * 10^k
 ```
+The branching factor of this tree is 10. This tree has N levels, since N is decremented by 1 in each recursive call so there must be N recursive levels before we reach the base case where the input is 0.
+
+Now we decide whether we should use the summation method or the multiplication method to solve for the overall runtime. Is the work/node consistent? Yes. From looking at the recursion tree, we can see that the nodes/level is not the same across all levels, but if we can calculate the total number of nodes in the tree we can find `total work = (work / node)(# of nodes)`. The total number of nodes can be found by adding up the number of nodes at each level: 1 + 10 + 10<sup>2</sup> + ... + 10<sup>N</sup> = &Theta;(10<sup>N</sup>), since the last term 10<sup>N</sup> dominates the others. Then the overall runtime of the function is &Theta;(10 * 10<sup>N</sup>), which equals &Theta;(10<sup>N</sup>).
+
+Alternatively, we could use summations to solve for the overall runtime. We can sum the work done at each level: 10 + 10 * 10<sup>1</sup> + 10 * 10<sup>2</sup> + ... + 10 * 10<sup>N</sup> = &Theta;(10<sup>N</sup>), since that last term dominates. As you can see, we get the same answer. 
