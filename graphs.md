@@ -77,6 +77,10 @@ A heuristic of a vertex _v_ is an estimation of the distance from _v_ to the tar
 ## Minimum Spanning Tree
 A spanning tree of a graph _G_ is a tree whose vertices are the vertices in _G_. A minimum spanning tree is a spanning tree whose sum of the edge weights is minimized. Unlike shortest paths trees, we do not have to specify a start vertex for MSTs, since we are considering the total cost of the edges and not minimizing the distance from one vertex to the others. 
 
+The following red edges form the minimum spanning tree of this graph.
+
+<img src="imgs/mst.png" alt="minimum spanning tree" height=300 />
+
 ### Prim's Algorithm 
 Prim's algorithm is a way to find a minimum spanning tree of a graph. It works mechanically like Dijkstra's, except the priority of a vertex is now the distance to the forming MST (we are considering a single edge weight here) instead of the distance to a source. Since MSTs do not have a notion of a source vertex, we can arbitrarily choose a vertex from which to start executing Prim's. Choosing different start vertices could potentially result in different MSTs, as there could be different ways to included edges such that the sum of their edge weights is minimized. The uniqueness of MSTs is discussed more in detail in the Cut Property section. 
 
