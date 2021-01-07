@@ -6,7 +6,7 @@ The static type is used during compile time, while the dynamic type is used duri
 Dog donner = new Husky();
 Husky dasher = new Husky();
 ```
-The dynamic type must be the same class or a subclass of the static type. In other words, \<dynamic type\> is a \<static type\> (e.g. A Husky is a Dog). 
+The dynamic type must be the same class or a subclass of the static type. In other words, \<dynamic type\> is a \<static type\> (e.g. a Husky is a Dog). 
 
 ## Overriding vs. Overloading 
 ```
@@ -25,9 +25,9 @@ class Husky extends Dog {
   public void play(Husky friend);
 }
 ```
-_Overloaded_ methods are methods in the same class that have the same name but different parameters. For example, `play(Dog friend)` and `play(Husky friend)` in the `Husky` class are overloaded methods. These methods are looked up during compile time and the method parameters are matched using static types. Using `dasher.play(donner)` as an example, the static type of `donner` is `Dog`, so we find the method `play(Dog friend)` in the `Husky` class during compile time. A more detailed and continued walkthrough is in the Dynamic Method Selection section.    
+_Overloaded_ methods are methods in the same class that have the same name but different parameters. For example, `play(Dog friend)` and `play(Husky friend)` in the `Husky` class are overloaded methods. These methods are looked up during compile time and the method parameters are matched using static types. 
 
-A method in the subclass _overrides_ a method in the superclass if has the same signature (same method name and parameters with the same static types and order). An `@Override` tag is often used above the method in the child class that overrides the method in the parent class. The `bark()` method in `Husky` overrides the `bark()` method in `Dog`. Overriden methods are looked up during the runtime of the program using the dynamic type of the object calling the method. 
+A method in the subclass _overrides_ a method in the superclass if has the same signature (same method name and parameters with the same static types and in the same order). An `@Override` tag is often used above the method in the child class that overrides the method in the parent class. The `bark()` method in `Husky` overrides the `bark()` method in `Dog`. Overriden methods are looked up during the runtime of the program using the dynamic type of the object calling the method. 
 
 ## Casting
 Casting tricks the compiler to use a different static type for an object. A cast is successful if there simply exists a parent-child relationship between the cast and the static type of the object. During runtime, we check if this parent-child relationship between the cast and the dynamic type actually makes sense. For example, consider the following:
@@ -40,8 +40,7 @@ An upcast is when we cast a child type to a parent type, and a downcast is when 
 
 ## Dynamic Method Selection
 In general, we can use this flow chart when executing dymanic method selection. 
-
-[image]
+![Dynamic method selection flow chart](imgs/dynamic-method-selection.png)
 
 Now let's run through an example.
 ```
