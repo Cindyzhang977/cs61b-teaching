@@ -57,16 +57,21 @@ Overall runtime is `O(VlogV) + O(VlogV) + O(ElogV) = O((V + E)logV)` <br/>
 We often see the runtime written as just `O(ElogV)` when we assume that there are more edges than vertices, which is usually the case in connected graphs. 
 
 #### Examples
-1. [Prof. Hug's walkthrough]()
+1. [Prof. Hug's walkthrough](https://docs.google.com/presentation/d/1_bw2z1ggUkquPdhl7gwdVBoTaoJmaZdpkV6MoAgxlJc/pub?start=false&loop=false&delayms=3000&slide=id.g771336078_0_180)
 2. [CSM worksheet example]()
-### A* Algorithm 
 
-A* has the same runtime as Dijkstra's and it can also fail with negative edges. 
+### A* Algorithm 
+A* is a more efficent alternative to Dijkstra's when the goal is to find the shortest path between a specific pair of vertices. Unlike Dijkstra's, it does not have to explore every single vertex in the graph and form the entire shortest paths tree. It instead uses **heuristics**, which are estimations of the distance from a vertex to the target vertex, in order to find the shortest path from the source to the target.
+
+The mechanics of A* are the same as Dijkstra's, except the priorities of the vertices in the fringe includes its heuristic value. As a result, it has the same runtime as Dijkstra's and it can also fail with negative edges. 
 
 #### Heuristics
+A heuristic of a vertex _v_ is an estimation of the distance from _v_ to the target vertex. Heuristic must be:
+- **admissible**: heuristic is an underestimate of true distance
+- **consistent**: difference between heuristics of two nodes is at most the true distance between them `h(A) - h(B) ≤ dist(A, B)`
 
 #### Examples
-1. [Prof. Hug's walkthrough]()
+1. [Prof. Hug's walkthrough](https://docs.google.com/presentation/d/177bRUTdCa60fjExdr9eO04NHm0MRfPtCzvEup1iMccM/edit#slide=id.g771336078_0_180)
 2. [CSM worksheet example]()
 
 ## Minimum Spanning Tree
