@@ -34,7 +34,7 @@ while fringe is not empty:
 #### Negative Edges 
 Notice that once a vertex is removed from the fringe, it is never readded. As a result, once a vertex is removed, its distance from the source is never updated again. This means that Dijkstra's assumes the distance from the source to a vertex cannot decrease as more edges are added. Each step of the algorithm we remove the vertex that is closest to the source with the assumption that any other path we find to that vertex would be greater that what is currently found. This assumption may fail with the presence of negative edges. To illustrate, consider the example below. When forming the shortest paths tree from vertex _a_ with Dijkstra's algorithm, we determine that the shortest path from a to c is a-->c with a distance of 3, but we can see that the actual shortest path from a to c is a-->b-->c with a distance of 2. 
 
-<img src="imgs/dijkstras-fail.png" alt="shortst paths tree fail with dijkstra's" height=300 />
+<img src="imgs/dijkstras-fail.png" alt="shortst paths tree fail with dijkstra's" height=250 />
 
 #### Runtime
 When deriving the runtime of algorithms in general, we can break it down into its different operations and data structures. Dijkstra's algorithm consists of adding to, removing from, and changing priorities in a heap. 
@@ -67,26 +67,51 @@ The mechanics of A* are the same as Dijkstra's, except the priorities of the ver
 
 #### Heuristics
 A heuristic of a vertex _v_ is an estimation of the distance from _v_ to the target vertex. Heuristic must be:
-- **admissible**: heuristic is an underestimate of true distance
-- **consistent**: difference between heuristics of two nodes is at most the true distance between them `h(A) - h(B) ≤ dist(A, B)`
+- **admissible**: the heuristic of a vertex is an underestimate of its true distance to the target vertex
+- **consistent**: the difference between heuristics of two vertices is at most the true distance between them `h(A) - h(B) ≤ dist(A, B)`
 
 #### Examples
 1. [Prof. Hug's walkthrough](https://docs.google.com/presentation/d/177bRUTdCa60fjExdr9eO04NHm0MRfPtCzvEup1iMccM/edit#slide=id.g771336078_0_180)
 2. [CSM worksheet example]()
 
 ## Minimum Spanning Tree
-- uniqueness 
+A spanning tree of a graph _G_ is a tree whose vertices are the vertices in _G_. A minimum spanning tree is a spanning tree whose sum of the edge weights is minimized. Unlike shortest paths trees, we do not have to specify a start vertex for MSTs, since we are considering the total cost of the edges and not minimizing the distance between pairs of vertices. 
 
 ### Prim's Algorithm 
+Prim's algorithm is a way to find a minimum spanning tree of a graph. It works mechanically like Dijkstra's, except the priority of a vertex is now the distance to the MST so far (we are considering a single edge weight here) instead of the distance to a source. Since MSTs do not have a notion of a source vertex, we can arbitrarily choose a vertex from which to start executing Prim's. Choosing different start vertices could potentially result in different MSTs, as there could be different ways to included edges such that the sum of their edge weights are minimized. The uniqueness of MSTs is discussed more in detail in the Cut Property section. 
+
+Here is the pseudocode of Prim's. As you can see, it's almost identical to Dijkstra's. 
+```
+\\ initialzed the same way as Dijkstra's
+
+while fringe is not empty:
+  v = fringe.removeSmallest()
+  for each edge v --> u with weight w where u is not in visited:
+    visited.add(u)    
+    if w < distTo[u]: \\ different from Dijkstra's
+      distTo[u] = w \\ different from Dijkstra's
+      edgeTo[u] = v
+      fringe.changePriority(u, distTo[u])
+```
 
 #### Cut Property 
+A **cut** of a graph is the set of edges that separates the vertices of the graph in two.
+
+<img src="imgs/cut-property.png" alt="cut property" height=300 />
+
+The **cut property** states that the lightest edge across a cut is in _some_ MST. Since MSTs must span the entire graph, the two halves produced by the cut must be connected somehow. The cheapest way to do so would be to use the lightest edge. The reason why it is included in _some_ MST and not _all_ MSTs is that edge weights do not have to be unique. If there are multiple edges in the cut with the smallest weight, any one of them must be included when forming the MST. Expanding upon this, **if edge weights are unique, then the MST of the graph is also unique**. Note that the converse is not true. If the MST of a graph is unique, it does not guarantee unique edge weights (consider the simple graph a--b--c, where the MST is unique no matter what the edge weights of a--b and b--c are). 
+
+Prim's algorithm uses the cut property to create the MST. Namely, the cut considered in Prim's is the set of edges separating the graph into vertices already in the forming MST and those that are not. The algorithm then picks the lightest edge across that cut. 
 
 #### Examples
-1. [Prof. Hug's walkthrough]()
+1. [Prof. Hug's walkthrough](https://docs.google.com/presentation/d/1NFLbVeCuhhaZAM1z3s9zIYGGnhT4M4PWwAc-TLmCJjc/edit#slide=id.g9a60b2f52_0_0)
 2. [CSM worksheet example]()
 
 ### Kruskal's Algorithm 
+Kruskal's is another algorithm for finding minimum spanning trees. It sorts the edges from lightest to heaviest. Then it adds edges in order into the MST as long as adding that edge does not create a cycle. To detect whether or not a cycle is created with the addition of an edge, we use the disjoint sets data structure to keep track of which vertices are connected. When considering adding the edge _(u, v)_, we first ask `isConnected(u, v)`? If so, we know that adding the edge _(u, v)_ would create a cycle, since there is already a path between _u_ and _v_ that does not use this edge. If they are not connected, we add _(u, v)_ to the MST and `union(u, v)` to indicate that now _u_ and _v_ are connected. 
+
+The runtime of Kruskal's is `O(ElogE)`, since it is dominated by the time it takes to sort the edges. 
 
 #### Examples
-1. [Prof. Hug's walkthrough]()
+1. [Prof. Hug's walkthrough](https://docs.google.com/presentation/d/1RhRSYs9Jbc335P24p7vR-6PLXZUl-1EmeDtqieL9ad8/edit#slide=id.g9a60b2f52_0_0)
 2. [CSM worksheet example]()
