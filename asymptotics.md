@@ -12,7 +12,7 @@ _Big-Omega_ (**&Omega;**) - lower bound
 
 _Big-Theta_ (**&Theta;**) - tight bound (a &Theta;-bound exists when the tightest upper bound equals tightest lower bound)
 
-**Note:** Big-O is not synonymous with "worst case" and Big-Omega is not synonymous with "best case". As an example, the worst case runtime of a function could be &Theta;(N<sup>2</sup>), and it's perfectly acceptable to say that &Theta;(N!) is an upper bound for the function. Instead, we can say that the worst case is the _tightest_ Big-O bound, and the best case is the _tightest_ Big-Omega bound. 
+**Note:** Big-O is not synonymous with "worst case" and Big-Omega is not synonymous with "best case". When talking about the worst case runtime of a function, we are describing the slowest possible runtime of the function given any input. Similarly, the best case runtime of a function refers to the absolute fastest the function could run given any input. As an example, the worst case runtime of a function could be &Theta;(N<sup>2</sup>) and its best case runtime could be &Theta;(N), and it's correct to describe the function runtims as O(N!) and &Omega;(1). Instead, we can say that the worst case is the _tightest_ Big-O bound, and the best case is the _tightest_ Big-Omega bound. 
 
 ## Quality vs. Quantity of Input
 During runtime analysis, we only consider when the input is infinitely large. In other words, we always assume that the _quantity_ of the input is an infinitly large `N`. Therefore, we ignore the if-statement in `function1` since 1000 is a constant, and the runtime of `function1` is &Theta;(N). 
@@ -33,7 +33,7 @@ We do consider, however, the _quality_ of the input. To list some examples:
 - If the input is a tree, is the tree balanced? (We always assume the number of nodes in the tree is infinitely large.)
 - If the input is an integer, is that integer odd or even? Is it divisible by 3? (We always assume the integer is infinitely large.)
 
-When analysing the runtime of `function2`, the if-statement considers the parity of `x`, which is a quality of the input, so we must break up the runtime between the best case and the worst case. The best case is if `x` is even, so the if-statement is satisfied and the function returns immediately, giving it a constant runtime &Theta;(1). The worst case is if `x` is odd, so the for-loop runs instead, giving it a linear runtime &Theta;(N). 
+When analysing the runtime of `function2`, the if-statement considers the parity of `x`, which is a quality of the input, so we must break up the runtime between the best case and the worst case. The best case is if `x` is even, so the if-statement is satisfied and the function returns immediately, giving it a constant runtime &Theta;(1). The worst case is if `x` is odd, so the for-loop runs instead, giving it a linear runtime &Theta;(N). Using the tightest bounds possible, we describe the runtime of the function as &Omega;(1) and O(N).
 ```
 void function2(int x) {
   if (x % 2 == 0) {
