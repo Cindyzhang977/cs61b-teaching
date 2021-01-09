@@ -1,9 +1,9 @@
 # Graphs
 
-[Dijkstra's Algorithm](dijkstra's-algorithm) <br/>
-[A* Algorithm](A*-algorithm) <br/>
-[Prim's Algorithm](Prim's-algorithm) <br/>
-[Kruskal's Algorithm](Kruskal's-algorithm)
+[Dijkstra's Algorithm](dijkstra\'s-algorithm) <br/>
+[A* Algorithm](A\*-algorithm) <br/>
+[Prim's Algorithm](Prim\'s-algorithm) <br/>
+[Kruskal's Algorithm](Kruskal\'s-algorithm)
 
 <img src="imgs/graph.png" alt="graph diagram" height=300 />
 
