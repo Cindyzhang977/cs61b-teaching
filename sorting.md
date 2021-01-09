@@ -59,7 +59,7 @@ Insertion sort is stable. Elements swap only until the element in front of it is
 
 Merge sort consists of breaking down the array in half, recursively sorting each half, then merging the two sorted arrays together to result in the overall sorted array. 
 
-<img src="imgs/merge-sort.png" alt="merge sort" height=300 />
+<img src="imgs/merge-sort.png" alt="merge sort" height=220 />
 
 #### Runtime
 
@@ -82,7 +82,7 @@ Merge sort is stable. When merging elements that are equal, the element in the l
 
 Quick sort involves first selecting an element _p_ as a pivot and then placing the other elements such that everything to the left of _p_ is less than or equal to _p_ and everything to the right of _p_ is greater than or equal to _p_. Like merge sort, the elements left of _p_ is recursively sorted using quicksort and so is the elements right of _p_. In the example below, the first element of each unsorted section of the array is chosen as the pivot, but the pivot can be chosen in other ways (chosen at random, choose the last element, etc.).
 
-<img src="imgs/quick-sort.png" alt="quick sort" height=350 />
+<img src="imgs/quick-sort.png" alt="quick sort" height=370 />
 
 #### Tony Hoare Partitioning
 
@@ -104,7 +104,7 @@ The stability of quick sort depends on how elements are partitioned to either si
 
 As the name suggests, heap sort puts all the elements into a heap (this is done by heapifying the array) and then removes them one by one to produce a sorted ordering. When sorting the elements in increasing order, a max heap is used. This is so that when the maximum element is removed, it is moved to the end of the array. As a result, the first part of the array functions as the max heap while the other part is the sorted array. 
 
-<img src="imgs/heap-sort.png" alt="heap sort" height=350 />
+<img src="imgs/heap-sort.png" alt="heap sort" height=370 />
 
 #### Runtime
 
@@ -115,13 +115,35 @@ Heapification of _N_ elements takes _&Theta;(NlogN)_ time (this can be reduced t
 Heap sort is unstable. The ordering of elements inside a heap is rather random. The max heap only maintains the invariant that every element is greater than its children, but the ordering of its children does not matter. 
 
 
-## Counting Sorts
+## Counting/Radix Sorts
+Counting (or radix) sorts don't use comparisons, so it can run faster than _&Theta;(NlogN)_. However, counting sorts can only be used if the elements have a **radix**, which is a fixed alphabet. For example, the radix of English words is the English alphabet, and the radix of integers are the digits 0 through 9. Objects can't be sorted with counting sorts, because there is no way to break them down into parts that serve as a radix. If we are sorting dogs, for example, it wouldn't make sense to try to break them down to an alphabet. 
 
-### Radix Sort
+### Counting Sort
+Counting sort, as the name suggests, first counts the number of occurrences of each element. Note that since we have a finite radix, we know exactly how many unique elements there are (if we are sorting integers, we know the digits can only be 0 through 9). We store these counts in a _counts array_, which has size _R_, where _R_ is the size of the radix. Then we allocate a new array of size _N_, where _N_ is the length of the unsorted input array. Since we know exactly how many elements there are of each category, we can place them one by one into the sorted array. A _starting points array_ is used to keep track of the next index of each category in the sorted array. 
+
+Let's walk through the example below, where we are sorting an array whose radix is the lowercase letters _a_ through _z_.
+1. Construct the _counts array_. Allocate an array of size _R = 26_ and count the number of occurrences of each letter in the unsorted array.
+2. Constuct the _starting points array_. Allocate an array of size _R = 26_ and store the index at which the next element of that letter should be placed. For example, _a_ is the first letter in alphabetical order so the _a_'s start at index 0 in the sorted array. Then there is 1 _a_ and 0 _b_'s, so we know that the _c_'s must start at index 1 in the sorted array. 
+3. Allocate another array of size _N_ to contain the elements in sorted order. Iterate through the unsorted array to place elements in their right place in this new sorted array. 
+  a. Each time an element is placed in the sorted array, the starting points array is updated. For example, after we place the first _c_ at index 1, we know that the next _c_ will be placed at index 2. Therefore we update the starting points array so that the index of _c_ is now 2. 
+
+<img src="counting-sort.png" alt="counting sort" height=400 />
+
+As we will see, LSD and MSD sort are in essence multiple iterations of counting sort. 
 
 #### Runtime
+Let _N_ be the size of the input array and _R_ be the size of the radix. We can derive the runtime by breaking the sort down into its different steps. 
+
+- Create array of size N to hold sorted order: _&Theta;(N)_
+- Create array of size R as the _counts array_: _&Theta;(R)_
+- Create array of size R as the _starting points array_: _&Theta;(R)_
+- Iterate through the input array to fill out _counts_ and _starting points_ arrays: _&Theta;(N)_
+- Iterate through the input array to place elements at the correct indices in the sorted array, updating the _starting points array_ each time: _&Theta;(N)_
+
+Adding up the runtimes from each step, we get that the overall runtime of counting sort is _&Theta;(N + R)_. 
 
 #### Stability
+Counting sort is stable. Because we iterate through the input array in order when placing the elements into the sorted array, equal elements are kept in the same order relative to each other. 
 
 ### Least Significant Digit (LSD) Sort
 
@@ -144,6 +166,6 @@ Heap sort is unstable. The ordering of elements inside a heap is rather random. 
 | Merge Sort | [Demo Link]() |
 | Quicksort | [Demo Link]() |
 | Heap Sort | [Demo Link]() |
-| Radix Sort | [Demo Link]() |
+| Counting Sort | [Demo Link](https://docs.google.com/presentation/d/1vmVKHRSwb5WN1rHvktplbPGecHChxOwWa7ovRuiLzbA/edit) |
 | LSD Sort | [Demo Link]() |
 | MSD Sort | [Demo Link]() |
