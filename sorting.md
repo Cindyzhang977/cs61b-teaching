@@ -110,6 +110,8 @@ As the name suggests, heap sort puts all the elements into a heap (this is done 
 
 Heapification of _N_ elements takes _&Theta;(NlogN)_ time (this can be reduced to _&Theta;(N)_ using bottom-up heapification). A single remove operation takes _&Theta;(logN)_, so it takes _&Theta;(NlogN)_ time to remove every element from the heap. Therefore, the overall runtime of heap sort is _&Theta;(NlogN)_.
 
+In the best case, where all the elements are the same, heap sort runs in _&Theta;(N)_.
+
 #### Stability
 
 Heap sort is unstable. The ordering of elements inside a heap is rather random. The max heap only maintains the invariant that every element is greater than its children, but the ordering of its children does not matter. 
@@ -146,26 +148,38 @@ Adding up the runtimes from each step, we get that the overall runtime of counti
 Counting sort is stable. Because we iterate through the input array in order when placing the elements into the sorted array, equal elements are kept in the same order relative to each other. 
 
 ### Least Significant Digit (LSD) Sort
+LSD sort uses counting sort to sort each digit starting from the _least_ significant digit. As shown in the example below, the numbers are first sorted by the ones' place, then by the tens' place, and so on. Notice that numbers are zero-padded to make them all the same length (34 becomes 0034).   
+
+<img src="lsd-sort.png" alt="LSD sort" height=200 />
 
 #### Runtime
+Remember that a single iteration of counting sort takes _&Theta;(N + R)_. Let _W_ be the length of the longest element. Since there is one iteration of counting sort for every digit, there are _W_ iterations of counting sorts. The overall runtime of LSD is _&Theta;(W(N + R))_. 
 
 #### Stability
+LSD sort is stable. It is simply multiple iterations of counting sort. 
 
 ### Most Significant Digit (MSD) Sort
+MSD sort is just like LSD sort except it sorts each digit starting from the _most_ significant digit. In addition, it separates elements into groups with the same prefix on each counting sort iteration. In the example below, after sorting by the most significant place, the elements are separated into groups that have the same most significant digit. Then MSD sort looks at each group separately as the sort continues. In the example below, when sorting by the next most significant digit, the numbers that begin with 0 are sorted against each other, the numbers that begin with 1 are sorted against each other, and so on. This is necessary, since the all numbers with the most significant digit of 0 is less than all numbers with the most significant digit of 1 (after all numbers have been zero-padded so that they are all the same length). The sort terminates when every element is in a group alone or when it has finished sorting by the least significant digit.   
+
+<img src="msd-sort.png" alt="MSD sort" height=200 />
 
 #### Runtime
+In the best case, every element has a different most significant digit, so only one iteration of counting sort is needed until every element has its own group. This results in a runtime of _&Theta;(N + R)_. (Convince yourself why LSD sort can't terminate early and must sort from the least significant digit all the way to the most significant digit.)
+
+In the worst case, counting sort must be used to sort every digit, so if _W_ is the length of the longest word, _W_ iterations of counting sort are needed. This results in a runtime of _&Theta;(W(N + R))_. 
 
 #### Stability
+MSD sort is stable. It is simply multiple iterations of counting sort. 
 
 ## Summary
 
 | Sort | Prof. Hug's Walkthrough | Best Case Runtime | Worst Case Runtime | Stable? |
 | ---- | ----------------------- | ----------------- | ------------------ | ------- |
-| Selection Sort | [Demo Link]() |
-| Insertion Sort | [Demo Link]() |
-| Merge Sort | [Demo Link]() |
-| Quicksort | [Demo Link]() |
-| Heap Sort | [Demo Link]() |
-| Counting Sort | [Demo Link](https://docs.google.com/presentation/d/1vmVKHRSwb5WN1rHvktplbPGecHChxOwWa7ovRuiLzbA/edit) |
-| LSD Sort | [Demo Link]() |
-| MSD Sort | [Demo Link]() |
+| Selection Sort | [Demo Link](https://docs.google.com/presentation/d/1p6g3r9BpwTARjUylA0V0yspP2temzHNJEJjCG41I4r0/edit#slide=id.g463de7561_042) | &Theta;(N<sup>2</sup>) | &Theta;(N<sup>2</sup>) | Depends |
+| Insertion Sort | [Demo Link](https://docs.google.com/presentation/d/10b9aRqpGJu8pUk8OpfqUIEEm8ou-zmmC7b_BE5wgNg0/pub?start=false&loop=false&delayms=3000&slide=id.g463de7561_042) | &Theta;(N) | &Theta;(N<sup>2</sup>) | Yes |
+| Merge Sort | [Demo Link](https://docs.google.com/presentation/d/1h-gS13kKWSKd_5gt2FPXLYigFY4jf5rBkNFl3qZzRRw/pub?start=false&loop=false&delayms=3000&slide=id.g463de7561_042) | &Theta;(NlogN) | &Theta;(NlogN) | Yes |
+| Quicksort | [Demo Link](https://docs.google.com/presentation/d/1QjAs-zx1i0_XWlLqsKtexb-iueao9jNLkN-gW9QxAD0/edit#slide=id.g3655bd8207_0_26) | &Theta;(NlogN) | &Theta;(N<sup>2</sup>) | Depends |
+| Heap Sort | [Demo Link](https://docs.google.com/presentation/d/1SzcQC48OB9agStD0dFRgccU-tyjD6m3esrSC-GLxmNc/edit#slide=id.g463de7561_042) | &Theta;(N) | &Theta;(NlogN) | No |
+| Counting Sort | [Demo Link](https://docs.google.com/presentation/d/1vmVKHRSwb5WN1rHvktplbPGecHChxOwWa7ovRuiLzbA/edit) | &Theta;(N + R) | &Theta;(N + R) | Yes |
+| LSD Sort | N/A | &Theta;(W(N + R)) | &Theta;(W(N + R)) | Yes |
+| MSD Sort | N/A | &Theta;(N + R) | &Theta;(W(N + R)) | Yes |
