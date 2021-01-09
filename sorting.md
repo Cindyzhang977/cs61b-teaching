@@ -129,7 +129,7 @@ Let's walk through the example below, where we are sorting an array whose radix 
 3. Allocate another array of size _N_ to contain the elements in sorted order. Iterate through the unsorted array to place elements in their right place in this new sorted array. 
   a. Each time an element is placed in the sorted array, the starting points array is updated. For example, after we place the first _c_ at index 1, we know that the next _c_ will be placed at index 2. Therefore we update the starting points array so that the index of _c_ is now 2. 
 
-<img src="counting-sort.png" alt="counting sort" height=400 />
+<img src="imgs/counting-sort.png" alt="counting sort" height=400 />
 
 As we will see, LSD and MSD sort are in essence multiple iterations of counting sort. 
 
@@ -150,7 +150,7 @@ Counting sort is stable. Because we iterate through the input array in order whe
 ### Least Significant Digit (LSD) Sort
 LSD sort uses counting sort to sort each digit starting from the _least_ significant digit. As shown in the example below, the numbers are first sorted by the ones' place, then by the tens' place, and so on. Notice that numbers are zero-padded to make them all the same length (34 becomes 0034).   
 
-<img src="lsd-sort.png" alt="LSD sort" height=200 />
+<img src="imgs/lsd-sort.png" alt="LSD sort" height=200 />
 
 #### Runtime
 Remember that a single iteration of counting sort takes _&Theta;(N + R)_. Let _W_ be the length of the longest element. Since there is one iteration of counting sort for every digit, there are _W_ iterations of counting sorts. The overall runtime of LSD is _&Theta;(W(N + R))_. 
@@ -161,7 +161,7 @@ LSD sort is stable. It is simply multiple iterations of counting sort.
 ### Most Significant Digit (MSD) Sort
 MSD sort is just like LSD sort except it sorts each digit starting from the _most_ significant digit. In addition, it separates elements into groups with the same prefix on each counting sort iteration. In the example below, after sorting by the most significant place, the elements are separated into groups that have the same most significant digit. Then MSD sort looks at each group separately as the sort continues. In the example below, when sorting by the next most significant digit, the numbers that begin with 0 are sorted against each other, the numbers that begin with 1 are sorted against each other, and so on. This is necessary, since the all numbers with the most significant digit of 0 is less than all numbers with the most significant digit of 1 (after all numbers have been zero-padded so that they are all the same length). The sort terminates when every element is in a group alone or when it has finished sorting by the least significant digit.   
 
-<img src="msd-sort.png" alt="MSD sort" height=200 />
+<img src="imgs/msd-sort.png" alt="MSD sort" height=200 />
 
 #### Runtime
 In the best case, every element has a different most significant digit, so only one iteration of counting sort is needed until every element has its own group. This results in a runtime of _&Theta;(N + R)_. (Convince yourself why LSD sort can't terminate early and must sort from the least significant digit all the way to the most significant digit.)
