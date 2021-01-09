@@ -1,4 +1,10 @@
 # Graphs
+
+[Dijkstra's Algorithm](dijkstra's-algorithm) <br/>
+[A* Algorithm](A*-algorithm) <br/>
+[Prim's Algorithm](Prim's-algorithm) <br/>
+[Kruskal's Algorithm](Kruskal's-algorithm)
+
 <img src="imgs/graph.png" alt="graph diagram" height=300 />
 
 Graphs are abstract data types that model relationships between different elements. **Directed** graphs have edges that are arrows, thus conveying a direction of the connection between two vertices. **Undirected** graphs have edges that don't have a direction, thus conveying a two-way relationship. The graph shown above is an undirected graph. A graph is **connected** when there is a set of edges (a **path**) connecting every pair of vertices. 
