@@ -1,7 +1,7 @@
 # Hashing
-When introducing hashing, I like to use a grocery store analogy. When you go to the grocery store to look for apples, you know you can simply go to the fruit section to find apples. However, if organization by aisles did not exist, and all the food is thrown all around the store, you would be forced to traverse the entire store in search of apples (as you would in a linked list). As a result, having organization by aisles makes grocery trips much more efficient and less traumatic. 
+When introducing hashing, I like to use a grocery store analogy. When you go to the grocery store to look for apples, you know you can simply go to the fruit section to find apples. However, if organization by aisles did not exist, and all the food is thrown all around the store, you would be forced to traverse the entire store in search of apples (as you would when searching for an item in a linked list). As a result, having organization by aisles makes grocery trips much more efficient and less traumatic. 
 
-Hashcodes are integers that represent a specific category, while hashing is the process of giving an object a hashcode. In the grocery store analogy, a hashcode can be thought of as the aisle number, while hashing is the process of determining the aisle in which an object belongs. 
+**Hashcodes** are integers that represent a specific category, while hashing is the process of giving an object a hashcode. In the grocery store analogy, a hashcode can be thought of as the aisle number, while hashing is the process of determining the aisle in which an object belongs. 
 
 ## Hashcodes
 The following properties must hold for a _valid_ hashcode:
