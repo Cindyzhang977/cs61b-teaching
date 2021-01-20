@@ -9,6 +9,7 @@ Husky dasher = new Husky();
 The dynamic type must be the same class or a subclass of the static type. In other words, \<dynamic type\> is a \<static type\> (e.g. a Husky is a Dog). 
 
 ## Overriding vs. Overloading 
+Note that the `extends` keyword means that the `Husky` class is a child class of `Dog`. 
 ```
 class Dog {
   public void bark();
@@ -25,9 +26,9 @@ class Husky extends Dog {
   public void play(Husky friend);
 }
 ```
-_Overloaded_ methods are methods in the same class that have the same name but different parameters. For example, `play(Dog friend)` and `play(Husky friend)` in the `Husky` class are overloaded methods. These methods are looked up during compile time and the method parameters are matched using static types. 
+_Overloaded_ methods are methods in the same class that have the same name but different parameters. For example, `public void play(Dog friend)` and `public void play(Husky friend)` in the `Husky` class are overloaded methods. These methods are looked up during compile time and the method parameters are matched using static types. 
 
-A method in the subclass _overrides_ a method in the superclass if has the same signature (same method name and parameters with the same static types and in the same order). An `@Override` tag is often used above the method in the child class that overrides the method in the parent class. The `bark()` method in `Husky` overrides the `bark()` method in `Dog`. Overriden methods are looked up during the runtime of the program using the dynamic type of the object calling the method. 
+A method in the subclass _overrides_ a method in the superclass if has the same signature (same method name and parameters with the same static types and in the same order). An `@Override` tag is often used above the method in the child class that overrides the method in the parent class. The `public void bark()` method in `Husky` overrides the `public void bark()` method in `Dog`. Overriden methods are looked up during the runtime of the program using the dynamic type of the object calling the method. 
 
 ## Casting
 Casting tricks the compiler to use a different static type for an object. A cast is successful if there simply exists a parent-child relationship between the cast and the static type of the object. During runtime, we check if this parent-child relationship between the cast and the dynamic type actually makes sense. For example, consider the following:
@@ -46,8 +47,8 @@ Now let's run through an example.
 ```
 dasher.play(donner);
 ```
-During compile time, we look at the static types. The static type of `dasher` is `Husky`, so we look in the `Husky` class and see that there are multiple `play` methods (i.e. it is an overloaded method). The static type of `donner` is `Dog`, so the most specific method found during compile time is `play(Dog friend)`. 
+During compile time, we look at the static types. The static type of `dasher` is `Husky`, so we look in the `Husky` class and see that there are multiple `play` methods (i.e. it is an overloaded method). The static type of `donner` is `Dog`, so the most specific method found during compile time is `public void play(Dog friend)`. 
 
-Next, during runtime, we use the dynamic type of `dasher`, which is also `Husky`. Since there is no overriding method, we will use the method found during compile time, which is `play(Dog friend)`.
+Next, during runtime, we use the dynamic type of `dasher`, which is also `Husky`. Since there is no overriding method, we will use the method found during compile time, which is `public void play(Dog friend)`.
 
-You may have noticed that it seems like `play(Husky friend)` may be a better fit. But be careful! Overloaded methods are not considered during runtime. 
+You may have noticed that it seems like `public void play(Husky friend)` may be a better fit. But be careful! Overloaded methods are not considered during runtime. 
